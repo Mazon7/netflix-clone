@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose; // Grab the schema object from mongoose
 
 
-mongoose.connect('mongodb+srv://netflix-user:0GZVr9ZyvWfv4gA6@cluster0.89oxm.mongodb.net/netflix-dev?retryWrites=true&w=majority', 
+mongoose.connect('paste mongo db data', 
 {
   useCreateIndex: true,
   useNewUrlParser: true,
