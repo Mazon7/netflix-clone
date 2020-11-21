@@ -1,3 +1,4 @@
-# PWJ Netflix Clone
+# Netflix Clone
 
-A project the students are building to learn the basics of HTML, CSS, and JavaScript
+This Netflix clone is built with pure JavaScript + HTML + CSS on the front and with Node.js and mongo DB on the backend
+Any additional info will be added while improving the project
