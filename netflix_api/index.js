@@ -3,17 +3,16 @@ const app = express() // initialize express
 const port = 3000 // setting the port
 const mongoose = require('mongoose');
 const { Schema } = mongoose; // Grab the schema object from mongoose
+require('dotenv').config()
+var cors = require('cors'); // configure CORS policy
 
 
-mongoose.connect('paste mongo db data', 
+mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.89oxm.mongodb.net/netflix-dev?retryWrites=true&w=majority`,
 {
   useCreateIndex: true,
-  useNewUrlParser: true,
+  useUnifiedTopology: true,
   useNewUrlParser: true
 });
-
-// netflix-user
-// 0GZVr9ZyvWfv4gA6
 
 const User = mongoose.model('Users', new Schema(
   { 
@@ -31,7 +30,7 @@ const User = mongoose.model('Users', new Schema(
 ));
 
 
-
+app.use(cors()); // using CORS
 app.use(express.json());
 
 // using the get method
@@ -43,16 +42,22 @@ app.get('/', (req, res) => {
 
 app.post('/register', (req, res) => {
   const newUser = new User ({
-    name: "Max",
-    email: "1231423213@gmail.com",
-    password: "123456789"
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password
   })
-  res.send('registered');
 
   newUser.save((err, user) => {
-    console.log("All works");
-    console.log(user);
-    console.log("registered");
+    if (err){
+      console.log(err);
+      res.send(400, {
+        status: err
+      })
+    } else {
+      console.log("All is good");
+      console.log(user);
+      res.send('registered')
+    }
   })
 })
 
@@ -60,22 +65,19 @@ app.post('/register', (req, res) => {
 app.post('/login', (req, res) => {
   const password  = req.body.password;
   const email = req.body.email;
-  const validUser = {
-    email:"max@gmail.com",
-    password: "1234"
-  }
-
-  if (email == validUser.email && password == validUser.password) {
-    res.send ({
-      status: "valid"
-    })
-  }  else {
-    res.status(404).send("Sorry can't find that!")
+  User.findOne({ email: email, password: password }, (err, user) => {
+    console.log(user);
+    if (user) {
+      res.send ({
+        status: "valid"
+      });
+    }  else {
+      res.send(404, {
+        status: "Not Found"
+      })
     }
-  console.log(req.body);  
-  res.send('Valid')
+  })
 })
-
 
 // start our app
 // listening to the port

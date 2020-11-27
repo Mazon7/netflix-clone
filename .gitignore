@@ -1,3 +1,4 @@
 node_modules
 plan.md
 /netflix-api/node_modules
+.env
