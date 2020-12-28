@@ -6,6 +6,25 @@ body {
   background-color: #111;
 }
 
+.dropdown-container {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  padding-top: 3px;
+  display: none;
+}
+
+.dropdown {
+  background-color: black;
+  padding: 8px;
+  border-radius: 4px;
+  width: 100px;
+}
+
+.dropdown span {
+  cursor: pointer;
+}
+
 /* ALL HEADER STYLES */
 header {
   display: flex;
@@ -132,6 +151,11 @@ img {
   overflow-y: hidden;
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.profile:hover .dropdown-container {
+  opacity: 1;
+  display: block;
 }
 
 .original__movies,

@@ -1,6 +1,14 @@
 let loginForm = document.getElementById("loginForm");
 let apiUrl = "http://localhost:3000";
 
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const existingEmail = urlParams.get('existingEmail');
+if(existingEmail){
+    loginForm.email.value = existingEmail
+}
+
+
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
   console.log(loginForm);
@@ -10,6 +18,9 @@ loginForm.addEventListener("submit", (e) => {
   }
   fetch(apiUrl + "/login", {
     method: "POST",
+    headers: {
+      'Content-Type':'application/json'
+    }
     body: JSON.stringify(payload)
   } )
   .then((response)=>{
@@ -20,6 +31,7 @@ loginForm.addEventListener("submit", (e) => {
     }
 }) // returns a promise already
 .then((response) => {
-  console.log("response");
+  localStorage.setItem('token', response.token)
+  location.href = "/";
   })
 })
