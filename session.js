@@ -5,7 +5,10 @@ function checkIfLoggedIn() {
       location.href = "/";
     }
   } else {
-    if (location.href != "http://127.0.0.1:5500/login.html" && location.href != "http://127.0.0.1:5500/register.html") {
+    // If user is currently is not logged in
+    // And trying to access a unauthorized page
+    // (Trying to access all pages besides login)
+    if (!location.href.includes("/login.html") && !location.href.includes("/register.html")) {
       location.href = "/login.html";
     }
   }
