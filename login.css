@@ -24,6 +24,10 @@ body {
   color: white;
 }
 
+.link-container {
+  margin-top: 10px;
+}
+
 .background-wrapper {
   position: absolute;
   top: 0;
